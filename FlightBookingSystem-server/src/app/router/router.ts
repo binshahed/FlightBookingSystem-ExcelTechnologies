@@ -1,18 +1,23 @@
 import { Application, Request, Response } from 'express';
 
 import { authRoutes } from '../modules/auth/auth.routes';
+import { flightRouter } from '../modules/flight/flight.routes';
 
 const modulesRouters = [
   {
     path: '/api',
     route: authRoutes,
   },
+  {
+    path: '/api/flights',
+    route: flightRouter,
+  },
 ];
 
 export const routes = (app: Application) => {
   // root route
   app.get('/', (req: Request, res: Response) => {
-    res.send('Muscle Movers Shopping');
+    res.send('Flight booking system');
   });
 
   // all routes

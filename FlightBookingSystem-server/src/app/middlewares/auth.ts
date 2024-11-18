@@ -1,4 +1,4 @@
-import httpStatus from 'http-status';
+import httpStatus from 'http-status-codes';
 import catchAsync from '../../utils/catchAsync';
 
 import { NextFunction, Request, Response } from 'express';
