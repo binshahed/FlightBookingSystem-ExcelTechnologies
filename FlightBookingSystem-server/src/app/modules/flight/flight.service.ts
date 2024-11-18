@@ -88,7 +88,7 @@ const deleteFlightById = async (id: string) => {
     throw new AppError(httpStatus.NOT_FOUND, 'Flight not found');
   }
 
-  return flight;
+  return {};
 };
 
 const searchFlights = async (query: any) => {
