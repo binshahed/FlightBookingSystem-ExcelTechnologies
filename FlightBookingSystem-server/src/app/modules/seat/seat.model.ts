@@ -1,8 +1,8 @@
 import { Schema, model } from 'mongoose';
-import { TSeat } from './seat.interface';
+import { TSeats } from './seat.interface';
 
 // Seat schema
-const SeatSchema = new Schema<TSeat>(
+const SeatSchema = new Schema<TSeats>(
   {
     flightNumber: {
       type: String,
@@ -17,7 +17,6 @@ const SeatSchema = new Schema<TSeat>(
             required: [true, 'Economy seat number is required'],
           },
           isBooked: { type: Boolean, default: false },
-        
         },
       ],
       business: [
@@ -27,7 +26,6 @@ const SeatSchema = new Schema<TSeat>(
             required: [true, 'Business seat number is required'],
           },
           isBooked: { type: Boolean, default: false },
-           
         },
       ],
       firstClass: [
@@ -37,7 +35,6 @@ const SeatSchema = new Schema<TSeat>(
             required: [true, 'First-class seat number is required'],
           },
           isBooked: { type: Boolean, default: false },
-          
         },
       ],
     },
@@ -47,6 +44,5 @@ const SeatSchema = new Schema<TSeat>(
   },
 );
 
-
 // Export the Mongoose model
-export const SeatModel = model<TSeat>('Seat', SeatSchema);
+export const SeatModel = model<TSeats>('Seat', SeatSchema);

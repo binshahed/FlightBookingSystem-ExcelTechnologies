@@ -1,28 +1,18 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export type TSeat = {
-  flightNumber: string;
-  seatMap: {
-    economy: [
-      {
-        seatNumber: string;
-        isBooked: boolean;
-      },
-    ];
-    business: [
-      {
-        seatNumber: string;
-        isBooked: boolean;
-      },
-    ];
-    firstClass: [
-      {
-        seatNumber: string;
-        isBooked: boolean;
-      },
-    ];
-  };
+  save?: any;
+  seatNumber: string;
+  isBooked: boolean;
 };
 
-
+export type TSeats = {
+  flightNumber: string;
+  seatMap: {
+    economy: [TSeat];
+    business: [TSeat];
+    firstClass: [TSeat];
+  };
+};
 
 type Column = 'A' | 'B' | 'C' | 'D' | 'E' | 'F';
 

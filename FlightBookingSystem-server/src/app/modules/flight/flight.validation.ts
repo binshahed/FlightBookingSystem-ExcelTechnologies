@@ -49,8 +49,19 @@ const createFlightValidation = z.object({
 // Update flight validation schema
 const updateFlightValidation = z.object({
   body: z.object({
-    flight: flightValidation.partial(),
-    seats: seatsValidation.partial(),
+    flightNumber: z.string({ message: 'Flight number is required' }).optional(),
+    airline: z.string({ message: 'Airline name is required' }).optional(),
+    origin: airportValidation.partial(),
+    destination: airportValidation.partial(),
+    departureTime: z
+      .string({ message: 'Departure time is required' })
+      .datetime()
+      .optional(),
+    arrivalTime: z
+      .string({ message: 'Arrival time is required' })
+      .datetime()
+      .optional(),
+    price: priceValidation.partial(),
   }),
 });
 

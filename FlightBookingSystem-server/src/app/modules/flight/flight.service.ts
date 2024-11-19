@@ -3,7 +3,7 @@ import httpStatus from 'http-status-codes';
 import AppError from '../../errors/AppError';
 import { TFlight } from './flight.interface';
 import { FlightModel } from './flight.model';
-import { TSeat, TSeatInput } from '../seat/seat.interface';
+import { TSeats, TSeatInput } from '../seat/seat.interface';
 import mongoose from 'mongoose';
 import { createSeatsForFlightWithSeatMap } from '../seat/seat.utils';
 import { SeatModel } from '../seat/seat.model';
@@ -20,7 +20,7 @@ const createFlight = async (payLoad: {
 
     const createSeatPlan = createSeatsForFlightWithSeatMap(payLoad.seats);
 
-    const seatPayload: TSeat = {
+    const seatPayload: TSeats = {
       flightNumber: payLoad.flight.flightNumber,
       seatMap: createSeatPlan,
     };
@@ -91,6 +91,20 @@ const deleteFlightById = async (id: string) => {
   return {};
 };
 
+const updateFlightById = async (id: string, payLoad: TFlight) => {
+  const findFlight = await FlightModel.findById(id);
+
+  if (!findFlight || findFlight.isDeleted) {
+    throw new AppError(httpStatus.NOT_FOUND, 'Flight not found');
+  }
+
+  const flight = await FlightModel.findByIdAndUpdate(id, payLoad, {
+    new: true,
+  });
+
+  return flight;
+};
+
 const searchFlights = async (query: any) => {
   const flights = new QueryBuilder(
     FlightModel.find({ isDeleted: { $ne: true } }),
@@ -109,126 +123,11 @@ const searchFlights = async (query: any) => {
   return flightResult;
 };
 
-// const getAllServices = async (query: Record<string, unknown>) => {
-//   const services = new QueryBuilder(
-//     ServiceModel.find({ isDeleted: { $ne: true } }),
-//     query,
-//   )
-//     .search(['name', 'description'])
-//     .filter([
-//       'searchTerm',
-//       'sort',
-//       'order',
-//       'limit',
-//       'page',
-//       'fields',
-//       'priceRange',
-//     ])
-//     .sort()
-//     .paginate()
-//     .fields();
-//   const serviceResult = await services.modelQuery.exec();
-
-//   return serviceResult;
-// };
-// const getAllServicesAdmin = async (query: Record<string, unknown>) => {
-//   // Create the base query using the QueryBuilder
-//   const services = new QueryBuilder(ServiceModel.find(), query)
-//     .search(['name', 'description'])
-//     .filter([
-//       'searchTerm',
-//       'sort',
-//       'order',
-//       'limit',
-//       'page',
-//       'fields',
-//       'priceRange',
-//     ])
-//     .sort()
-//     .paginate()
-//     .fields();
-
-//   // Execute the query to get the results
-//   const serviceResult = await services.modelQuery.exec();
-
-//   // Fetch the total count of documents without pagination filters
-//   const totalCount = await ServiceModel.countDocuments(services.filterQuery);
-
-//   // Extract pagination parameters from the query
-//   const page = query.page ? parseInt(query.page as string, 10) : 1;
-//   const limit = query.limit ? parseInt(query.limit as string, 10) : 10;
-
-//   // Calculate total pages
-//   const totalPages = Math.ceil(totalCount / limit);
-
-//   // Return the result along with pagination details
-//   return {
-//     data: serviceResult,
-//     total: totalCount,
-//     currentPage: page,
-//     totalPages,
-//     pageSize: limit,
-//   };
-// };
-
-// const getServiceById = async (id: string) => {
-//   const service = await ServiceModel.findById(id);
-
-//   // checking is service is deleted
-//   if (service?.isDeleted) {
-//     throw new NotFoundError(httpStatus.NOT_FOUND, 'Service is deleted!');
-//   }
-
-//   // checking is service is available
-//   if (!service) {
-//     throw new NotFoundError(
-//       httpStatus.NOT_FOUND,
-//       'Service not found!',
-//       service,
-//     );
-//   }
-//   return service;
-// };
-
-// const updateServiceById = async (id: string, payLoad: Partial<TFlight>) => {
-//   const service = await ServiceModel.findByIdAndUpdate(id, payLoad, {
-//     new: true,
-//   });
-
-//   // checking is service is available
-//   if (!service) {
-//     throw new NotFoundError(
-//       httpStatus.NOT_FOUND,
-//       'Service not found!',
-//       service,
-//     );
-//   }
-//   return service;
-// };
-
-// const deleteServiceById = async (id: string) => {
-//   const service = await ServiceModel.findById(id);
-
-//   // checking is service is available
-//   if (service?.isDeleted || !service) {
-//     throw new NotFoundError(httpStatus.NOT_FOUND, 'Service not found!');
-//   }
-
-//   const result = await ServiceModel.findByIdAndUpdate(id, { isDeleted: true });
-
-//   return result;
-// };
-
 export const flightService = {
   createFlight,
   getAllFlights,
   getFlightById,
   deleteFlightById,
+  updateFlightById,
   searchFlights,
-
-  // getAllServices,
-  // getServiceById,
-  // updateServiceById,
-  // deleteServiceById,
-  // getAllServicesAdmin,
 };

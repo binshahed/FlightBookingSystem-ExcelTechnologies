@@ -16,23 +16,16 @@ router
   )
   .get(flightController.getAllFlights);
 
-router.route('/:id').get(flightController.getFlightById).delete(auth('admin'), flightController.deleteFlightById);
+router
+  .route('/:id')
+  .get(flightController.getFlightById)
+  .delete(auth('admin'), flightController.deleteFlightById)
+  .patch(
+    auth('admin'),
+    validateRequest(FlightValidation.updateFlightValidation),
+    flightController.updateFlightById,
+  );
 
 router.route('/search').get(flightController.searchFlights);
-//   .get(serviceController.getAllServices);
-
-// router
-//   .route('/admin')
-//   .get(auth('admin'), serviceController.getAllServicesAdmin);
-
-// router
-//   .route('/:id')
-//   .get(serviceController.getServiceById)
-//   .patch(
-//     auth('admin'),
-//     validateRequest(ServiceValidation.updateServiceValidation),
-//     serviceController.updateServiceById,
-//   )
-//   .delete(auth('admin'), serviceController.deleteServiceById);
 
 export const flightRouter = router;

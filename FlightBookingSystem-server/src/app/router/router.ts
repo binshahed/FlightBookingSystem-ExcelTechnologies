@@ -2,6 +2,7 @@ import { Application, Request, Response } from 'express';
 
 import { authRoutes } from '../modules/auth/auth.routes';
 import { flightRouter } from '../modules/flight/flight.routes';
+import { bookingRouters } from '../modules/booking/booking.routes';
 
 const modulesRouters = [
   {
@@ -11,6 +12,10 @@ const modulesRouters = [
   {
     path: '/api/flights',
     route: flightRouter,
+  },
+  {
+    path: '/api/bookings',
+    route: bookingRouters,
   },
 ];
 
