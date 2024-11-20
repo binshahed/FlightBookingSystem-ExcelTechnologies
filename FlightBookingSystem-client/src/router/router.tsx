@@ -4,6 +4,8 @@ import MainLayout from "../layout/MainLayout";
 import PublicRoute from "./PublicRoute";
 import ProtectedRoute from "./ProtectedRoute";
 import HomePage from "../pages/HomePage";
+import LoginPage from "../pages/LoginPage";
+import RegisterPage from "../pages/RegisterPage";
 
 const router = createBrowserRouter([
   {
@@ -23,15 +25,15 @@ const router = createBrowserRouter([
         path: "login",
         element: (
           <PublicRoute>
-            <h1>Login Page</h1>
+            <LoginPage />
           </PublicRoute>
         )
       },
       {
-        path: "sign-up",
+        path: "register",
         element: (
           <PublicRoute>
-            <h1>Sign Up Page</h1>
+            <RegisterPage />
           </PublicRoute>
         )
       }

@@ -1,9 +1,15 @@
-const flowbite = require("flowbite-react/tailwind");
-const colors = require("tailwindcss/colors");
+/** @type {import('tailwindcss').Config} */
+import flowbite from "flowbite-react/tailwind";
+import colors from "tailwindcss/colors";
 
-module.exports = {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}", flowbite.content()],
+export default {
+  content: ["./src/**/*.{js,jsx,ts,tsx}", flowbite.content()],
+  // darkMode: false,
   theme: {
+    fontFamily: {
+      sans: ["Montserrat", "Sans-serif"],
+      inter: ["Inter", "Sans-serif"]
+    },
     container: {
       center: true,
       padding: {
@@ -17,7 +23,7 @@ module.exports = {
     extend: {},
     colors: {
       transparent: "transparent",
-      primary: "#173540",
+      primary: "#FF9D13",
       ...colors
     }
   },
