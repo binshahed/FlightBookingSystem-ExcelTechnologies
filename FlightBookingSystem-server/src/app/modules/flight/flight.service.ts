@@ -114,8 +114,6 @@ const searchFlights = async (query: any) => {
     'origin.country',
     'destination.city',
     'destination.country',
-    'departureTime',
-    'arrivalTime',
   ]);
 
   const flightResult = await flights.modelQuery.exec();

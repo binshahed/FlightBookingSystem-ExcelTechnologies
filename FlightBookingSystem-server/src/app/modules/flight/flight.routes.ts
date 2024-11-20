@@ -16,6 +16,8 @@ router
   )
   .get(flightController.getAllFlights);
 
+router.route('/search').get(flightController.searchFlights);
+
 router
   .route('/:id')
   .get(flightController.getFlightById)
@@ -25,7 +27,5 @@ router
     validateRequest(FlightValidation.updateFlightValidation),
     flightController.updateFlightById,
   );
-
-router.route('/search').get(flightController.searchFlights);
 
 export const flightRouter = router;

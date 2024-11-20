@@ -59,7 +59,11 @@ const updateFlightById = catchAsync(async (req, res) => {
 });
 
 const searchFlights = catchAsync(async (req, res) => {
-  const result = await flightService.searchFlights(req.body);
+ 
+;
+  
+  
+  const result = await flightService.searchFlights(req.query);
 
   sendResponse(res, {
     success: true,
