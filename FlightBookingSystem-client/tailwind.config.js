@@ -24,6 +24,7 @@ export default {
     colors: {
       transparent: "transparent",
       primary: "#FF9D13",
+      secondary: "#173540",
       ...colors
     }
   },

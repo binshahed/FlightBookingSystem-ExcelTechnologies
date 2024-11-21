@@ -59,10 +59,22 @@ const deleteBooking = catchAsync(async (req, res) => {
   });
 });
 
+const getMyBookings = catchAsync(async (req, res) => {
+  const result = await bookingService.getMyBookings(req.user?._id);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'My bookings retrieved successfully',
+    data: result,
+  });
+});
+
 export const bookingController = {
   createBooking,
   getUserBookings,
   getAllBookings,
   updateBooking,
   deleteBooking,
+  getMyBookings,
 };

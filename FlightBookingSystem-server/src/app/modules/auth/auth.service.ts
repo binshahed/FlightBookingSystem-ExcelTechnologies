@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import config from '../../config';
 
 import bcrypt from 'bcrypt';
@@ -70,7 +71,19 @@ const loginUser = async (payload: { email: string; password: string }) => {
   };
 };
 
+const updateProfile = async (userId: any, payload: TUser) => {
+  const user = await UserModel.findByIdAndUpdate(userId, payload, {
+    new: true,
+  });
+  if (!user) {
+    throw new Error('User not found');
+  }
+
+  return user;
+};
+
 export const userService = {
   signUpUser,
   loginUser,
+  updateProfile,
 };

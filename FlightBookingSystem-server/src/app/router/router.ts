@@ -33,7 +33,7 @@ export const routes = (app: Application) => {
     res.send({
       success: false,
       statusCode: 404,
-      message: 'Not Found',
+      message: 'Route Not Found',
     });
   });
 };

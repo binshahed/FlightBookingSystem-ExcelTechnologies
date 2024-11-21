@@ -27,4 +27,15 @@ const loginUser = catchAsync(async (req, res) => {
   });
 });
 
-export const userController = { signupUser, loginUser };
+const updateProfile = catchAsync(async (req, res) => {
+  const result = await userService.updateProfile(req.user?._id, req.body);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'User profile updated successfully',
+    data: result,
+  });
+});
+
+export const userController = { signupUser, loginUser, updateProfile };

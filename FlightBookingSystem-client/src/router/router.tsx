@@ -1,11 +1,14 @@
 import { createBrowserRouter } from "react-router-dom";
 
 import MainLayout from "../layout/MainLayout";
-import PublicRoute from "./PublicRoute";
 import ProtectedRoute from "./ProtectedRoute";
 import HomePage from "../pages/HomePage";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
+import SearchPage from "../pages/SearchPage";
+import FlightDetailsPage from "../pages/FlightDetailsPage";
+import BookingPage from "../pages/BookingPage";
+import ProfilePage from "../pages/ProfilePage";
 
 const router = createBrowserRouter([
   {
@@ -17,25 +20,37 @@ const router = createBrowserRouter([
         element: <HomePage />
       },
       {
-        path: "/profile",
-        element: <h1>Profile Page</h1>
+        path: "search",
+        element: <SearchPage />
+      },
+      {
+        path: "flight/:id",
+        element: <FlightDetailsPage />
+      },
+      {
+        path: "booking",
+        element: (
+          <ProtectedRoute>
+            <BookingPage />s
+          </ProtectedRoute>
+        )
+      },
+      {
+        path: "profile",
+        element: (
+          <ProtectedRoute>
+            <ProfilePage />
+          </ProtectedRoute>
+        )
       },
 
       {
         path: "login",
-        element: (
-          <PublicRoute>
-            <LoginPage />
-          </PublicRoute>
-        )
+        element: <LoginPage />
       },
       {
         path: "register",
-        element: (
-          <PublicRoute>
-            <RegisterPage />
-          </PublicRoute>
-        )
+        element: <RegisterPage />
       }
     ]
     // errorElement: <NotFoundPage />

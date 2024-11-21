@@ -1,13 +1,19 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Button, Card, Label, TextInput } from "flowbite-react";
 import { useLoginMutation } from "../store/features/auth/authApi";
 import { verifyToken } from "../utils/verifyToken";
-import { setUser, TUserData } from "../store/features/auth/authSlice";
+import {
+  setUser,
+  TUserData,
+  useCurrentToken
+} from "../store/features/auth/authSlice";
 
-import { useAppDispatch } from "../store/hooks";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { useLocation, useNavigate } from "react-router-dom";
 import { APIError } from "../types/ApiError";
 import { toast } from "sonner";
 import { useForm } from "react-hook-form";
+import { useEffect } from "react";
 
 type LoginFormInputs = {
   email: string;
@@ -20,6 +26,7 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const state = location.state as { from?: string };
+  const token = useAppSelector(useCurrentToken);
 
   const {
     register,
@@ -37,14 +44,23 @@ const LoginPage = () => {
 
       dispatch(setUser({ user, token: res.token }));
       toast.success("Login successful");
+
       const targetPath =
         state?.from && state.from.startsWith("/") ? state.from : "/";
-      navigate(targetPath, { replace: true });
+      navigate(targetPath.trim(), { replace: true });
     } catch (err) {
       const apiError = err as APIError;
       toast.error(apiError.data.message);
     }
   };
+
+  useEffect(() => {
+    if (token) {
+      const targetPath =
+        state?.from && state.from.startsWith("/") ? state.from : "/";
+      navigate(targetPath.trim(), { replace: true });
+    }
+  }, []);
 
   return (
     <div className="container h-[80vh] flex items-center justify-center">

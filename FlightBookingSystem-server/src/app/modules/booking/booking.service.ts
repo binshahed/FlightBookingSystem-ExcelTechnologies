@@ -312,10 +312,21 @@ const deleteBooking = async (bookingId: string) => {
   }
 };
 
+const getMyBookings = async (userId: any) => {
+  const user = userId.toString();
+
+  const bookings = await BookingModel.find({ userId: user })
+    .populate('flightId')
+    .populate('userId');
+
+  return bookings;
+};
+
 export const bookingService = {
   createBooking,
   getUserBookings,
   getAllBookings,
   updateBooking,
   deleteBooking,
+  getMyBookings,
 };

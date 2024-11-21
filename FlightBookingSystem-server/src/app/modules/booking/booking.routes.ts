@@ -19,7 +19,7 @@ router
 
 router
   .route('/user')
-  .post(auth('admin', 'user'), bookingController.createBooking);
+  .get(auth('admin', 'user'), bookingController.getMyBookings);
 
 router
   .route('/:id')

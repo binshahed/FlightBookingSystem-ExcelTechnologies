@@ -2,18 +2,19 @@ import { Card } from "flowbite-react";
 import { useSearchFlightQuery } from "../store/features/flight/flightApi";
 import { useState } from "react";
 import { useDebounce } from "use-debounce";
+import { TbTransfer } from "react-icons/tb";
+import { TFlight } from "../types/types.flight";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
   const [searchValue, setSearchValue] = useState({ searchTerm: "" });
   const [value] = useDebounce(searchValue, 1000);
   const { data, isLoading } = useSearchFlightQuery(value);
 
-  console.log(data);
-
   return (
     <div>
       {/* Hero Section */}
-      <div className="bg-blue-600">
+      <div className="bg-primary">
         <div className="h-[70vh] md:h-[50vh] flex flex-col items-center justify-center px-4 text-center">
           <div className="text-white uppercase">
             <h1 className="text-3xl md:text-5xl lg:text-7xl font-bold">
@@ -52,19 +53,38 @@ const HomePage = () => {
                     </div>
                   )}
                   {!isLoading && data && data?.data?.length > 0
-                    ? data?.data?.map((flight) => (
-                        <div
+                    ? data?.data?.map((flight: TFlight) => (
+                        <Link
+                          to={`flight/${flight?._id}`}
                           key={flight?._id}
-                          className="px-4 py-2 hover:bg-gray-100 cursor-pointer flex text-center"
+                          className="flex items-center p-4 bg-white shadow-md rounded-lg hover:bg-gray-50 cursor-pointer transition-all duration-200 border"
                         >
-                          <div>
-                            <p>{flight?.origin?.airportCode}</p>
-                            <p>{flight?.origin?.city}</p>
-                            <p>{flight?.origin?.country}</p>
-                          </div>{" "}
-                          <span className="mx-3">-</span>
-                          <div>{flight?.flightNumber}</div>
-                        </div>
+                          {/* Origin Details */}
+                          <div className="flex-1">
+                            <p className="text-xl font-semibold text-gray-800">
+                              {flight?.origin?.airportCode}
+                            </p>
+                            <p className="text-sm text-gray-600">
+                              {flight?.origin?.city}, {flight?.origin?.country}
+                            </p>
+                          </div>
+
+                          {/* Transfer Icon */}
+                          <div className="mx-5 text-gray-500">
+                            <TbTransfer className="text-2xl" />
+                          </div>
+
+                          {/* Destination Details */}
+                          <div className="flex-1 text-right">
+                            <p className="text-xl font-semibold text-gray-800">
+                              {flight?.destination?.airportCode}
+                            </p>
+                            <p className="text-sm text-gray-600">
+                              {flight?.destination?.city},{" "}
+                              {flight?.destination?.country}
+                            </p>
+                          </div>
+                        </Link>
                       ))
                     : !isLoading &&
                       value?.searchTerm && (
@@ -98,7 +118,7 @@ const HomePage = () => {
             </p>
           </Card>
 
-          <Card imgSrc="https://images.unsplash.com/photo-1554036045-d39e8b6a3123?q=80&w=2030&auto=format&fit=crop">
+          <Card imgSrc="https://images.unsplash.com/photo-1696519668872-8ec964b9b208?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
             <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
               Santorini: A Greek Paradise
             </h5>
@@ -107,7 +127,7 @@ const HomePage = () => {
             </p>
           </Card>
 
-          <Card imgSrc="https://images.unsplash.com/photo-1590490358406-6a4a047f1cc3?q=80&w=2030&auto=format&fit=crop">
+          <Card imgSrc="https://images.unsplash.com/photo-1723642502234-ee0128e1ce51?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
             <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
               Dubai: A City of Wonders
             </h5>
@@ -149,13 +169,13 @@ const HomePage = () => {
       </div>
 
       {/* Footer Section */}
-      <div className="bg-blue-600 py-8">
+      <div className="bg-secondary py-8">
         <div className="container mx-auto text-center text-white">
           <h2 className="text-xl font-bold mb-4">Ready to Explore?</h2>
           <p className="mb-6">
             Book your flights now and start your adventure today!
           </p>
-          <button className="bg-white text-blue-600 px-6 py-2 rounded-lg font-bold">
+          <button className="bg-white text-secondary px-6 py-2 rounded-lg font-bold">
             Get Started
           </button>
         </div>

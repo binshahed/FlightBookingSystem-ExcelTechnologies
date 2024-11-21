@@ -1,11 +1,17 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useForm } from "react-hook-form";
 import { Button, Card, Label, TextInput, Textarea } from "flowbite-react";
 import { toast } from "sonner";
 import { useSignUpMutation } from "../store/features/auth/authApi";
-import { useAppDispatch } from "../store/hooks";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { useLocation, useNavigate } from "react-router-dom";
-import { setUser, TUserData } from "../store/features/auth/authSlice";
+import {
+  setUser,
+  TUserData,
+  useCurrentToken
+} from "../store/features/auth/authSlice";
 import { verifyToken } from "../utils/verifyToken";
+import { useEffect } from "react";
 
 type RegisterFormInputs = {
   name: string;
@@ -27,6 +33,8 @@ const RegisterPage = () => {
     formState: { errors }
   } = useForm<RegisterFormInputs>();
 
+  const token = useAppSelector(useCurrentToken);
+
   const onSubmit = async (data: RegisterFormInputs) => {
     try {
       const res = await signUp(data).unwrap();
@@ -44,6 +52,14 @@ const RegisterPage = () => {
       toast.error("Failed to register. Please try again.");
     }
   };
+
+  useEffect(() => {
+    if (token) {
+      const targetPath =
+        state?.from && state.from.startsWith("/") ? state.from : "/";
+      navigate(targetPath.trim(), { replace: true });
+    }
+  }, []);
 
   return (
     <div className="container h-[90vh] flex items-center justify-center">
