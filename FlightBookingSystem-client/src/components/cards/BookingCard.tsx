@@ -1,107 +1,106 @@
-import { Card } from "flowbite-react"; // Assuming you're using Flowbite's Card component for styling
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Card } from "flowbite-react";
 
 const BookingCard = ({ booking }: { booking: any }) => {
   return (
-    <Card className=" w-full shadow-lg p-4 space-y-4 bg-white border rounded-lg">
-      {/* Flight Details */}
-      <h3 className="text-lg font-semibold text-gray-800">
-        Booking ID: {booking?._id}
+    <Card className="w-full max-w-md p-6 shadow-lg rounded-lg bg-white border">
+      {/* Header Section */}
+      <h3 className="text-xl font-bold text-gray-900">
+        Booking ID: <span className="text-blue-600">{booking?._id}</span>
       </h3>
 
-      <div className="space-y-2">
+      {/* Flight Details */}
+      <div className="mt-4 space-y-3">
         <div className="flex justify-between">
           <p className="text-gray-600">Flight Number:</p>
-          <span className="font-medium text-gray-800">
-            {booking?.flightId?.flightNumber}
+          <span className="text-gray-800 font-medium">
+            {booking?.flightId?.flightNumber || "N/A"}
           </span>
         </div>
         <div className="flex justify-between">
           <p className="text-gray-600">Airline:</p>
-          <span className="font-medium text-gray-800">
-            {booking?.flightId?.airline}
+          <span className="text-gray-800 font-medium">
+            {booking?.flightId?.airline || "N/A"}
           </span>
         </div>
         <div className="flex justify-between">
           <p className="text-gray-600">Departure:</p>
-          <span className="font-medium text-gray-800">
-            {new Date(booking?.flightId?.departureTime).toLocaleString()}
+          <span className="text-gray-800 font-medium">
+            {booking?.flightId?.departureTime
+              ? new Date(booking?.flightId?.departureTime).toLocaleString()
+              : "N/A"}
           </span>
         </div>
         <div className="flex justify-between">
           <p className="text-gray-600">Arrival:</p>
-          <span className="font-medium text-gray-800">
-            {new Date(booking?.flightId?.arrivalTime).toLocaleString()}
+          <span className="text-gray-800 font-medium">
+            {booking?.flightId?.arrivalTime
+              ? new Date(booking?.flightId?.arrivalTime).toLocaleString()
+              : "N/A"}
           </span>
         </div>
         <div className="flex justify-between">
           <p className="text-gray-600">Price:</p>
-          <span className="font-medium text-gray-800">
-            ${booking?.totalPrice}
+          <span className="text-gray-800 font-medium">
+            ${booking?.totalPrice || "N/A"}
           </span>
         </div>
       </div>
 
       {/* User Details */}
-      <div className="space-y-2">
+      <div className="mt-6 space-y-3">
+        <h4 className="text-lg font-semibold text-gray-800">
+          Passenger Details
+        </h4>
         <div className="flex justify-between">
-          <p className="text-gray-600">User:</p>
-          <span className="font-medium text-gray-800">
-            {booking?.userId?.name}
+          <p className="text-gray-600">Name:</p>
+          <span className="text-gray-800 font-medium">
+            {booking?.userId?.name || "N/A"}
           </span>
         </div>
         <div className="flex justify-between">
           <p className="text-gray-600">Email:</p>
-          <span className="font-medium text-gray-800">
-            {booking?.userId?.email}
+          <span className="text-gray-800 font-medium">
+            {booking?.userId?.email || "N/A"}
           </span>
         </div>
         <div className="flex justify-between">
           <p className="text-gray-600">Phone:</p>
-          <span className="font-medium text-gray-800">
-            {booking?.userId?.phone}
-          </span>
-        </div>
-        <div className="flex justify-between">
-          <p className="text-gray-600">Address:</p>
-          <span className="font-medium text-gray-800">
-            {booking?.userId?.address}
+          <span className="text-gray-800 font-medium">
+            {booking?.userId?.phone || "N/A"}
           </span>
         </div>
       </div>
 
       {/* Seat Information */}
-      <div className="space-y-2">
-        <div className="flex justify-between">
-          <p className="text-gray-600">Seats Reserved:</p>
-          <span className="font-medium text-gray-800">
-            {`Economy: ${booking?.seats?.economy.join(
-              ", "
-            )} | Business: ${booking?.seats?.business.join(
-              ", "
-            )} | First Class: ${booking?.seats?.firstClass.join(", ")}`}
-          </span>
-        </div>
+      <div className="mt-6">
+        <h4 className="text-lg font-semibold text-gray-800">Seats Reserved</h4>
+        <p className="mt-2 text-gray-700">
+          <span className="font-medium">Economy:</span>{" "}
+          {booking?.seats?.economy?.join(", ") || "N/A"}
+        </p>
+        <p className="text-gray-700">
+          <span className="font-medium">Business:</span>{" "}
+          {booking?.seats?.business?.join(", ") || "N/A"}
+        </p>
+        <p className="text-gray-700">
+          <span className="font-medium">First Class:</span>{" "}
+          {booking?.seats?.firstClass?.join(", ") || "N/A"}
+        </p>
       </div>
 
       {/* Booking Status */}
-      <div className="flex justify-between">
-        <p className="text-gray-600">Status:</p>
+      <div className="mt-6 flex justify-between items-center">
+        <p className="text-gray-600 font-medium">Status:</p>
         <span
-          className={`font-medium ${
+          className={`px-3 py-1 rounded-full text-sm ${
             booking?.bookingStatus === "confirmed"
-              ? "text-green-600"
-              : "text-yellow-600"
+              ? "bg-green-100 text-green-600"
+              : "bg-yellow-100 text-yellow-600"
           }`}
         >
-          {booking?.bookingStatus}
+          {booking?.bookingStatus || "Pending"}
         </span>
-      </div>
-
-      {/* Action Button */}
-      <div className="flex justify-end mt-4">
-        <button className="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700">
-          View Details
-        </button>
       </div>
     </Card>
   );

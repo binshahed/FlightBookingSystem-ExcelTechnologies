@@ -87,12 +87,14 @@ export default function NavBar() {
               }
             >
               <Dropdown.Header>
-                <span className="block text-sm font-medium">
-                  {user?.name || "User Name"}
-                </span>
-                <span className="block truncate text-sm text-gray-500">
-                  {user?.email}
-                </span>
+                <Link to="/profile">
+                  <span className="block text-sm font-medium">
+                    {user?.name || "User Name"}
+                  </span>
+                  <span className="block truncate text-sm text-gray-500">
+                    {user?.email}
+                  </span>
+                </Link>
               </Dropdown.Header>
               <Dropdown.Item>
                 <Link to="/dashboard">Dashboard</Link>

@@ -9,6 +9,10 @@ import SearchPage from "../pages/SearchPage";
 import FlightDetailsPage from "../pages/FlightDetailsPage";
 import BookingPage from "../pages/BookingPage";
 import ProfilePage from "../pages/ProfilePage";
+import DashboardLayout from "../layout/dashboard/DashboardLayout";
+import DashboardHome from "../pages/dashboard/DashboardHome";
+import DashboardBooking from "../pages/dashboard/DashboardBooking";
+import DashboardFlights from "../pages/dashboard/DashboardFlights";
 
 const router = createBrowserRouter([
   {
@@ -56,14 +60,26 @@ const router = createBrowserRouter([
     // errorElement: <NotFoundPage />
   },
   {
-    path: "/admin",
+    path: "/dashboard",
     element: (
       <ProtectedRoute>
-        {/* <DashboardLayout /> */}
-        <h1>Admin Page</h1>
+        <DashboardLayout />
       </ProtectedRoute>
     ),
-    children: []
+    children: [
+      {
+        path: "",
+        element: <DashboardHome />
+      },
+      {
+        path: "flights",
+        element: <DashboardFlights />
+      },
+      {
+        path: "bookings",
+        element: <DashboardBooking />
+      }
+    ]
   },
 
   {

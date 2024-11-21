@@ -16,8 +16,31 @@ const authApi = baseApi.injectEndpoints({
         method: "GET"
       }),
       providesTags: ["flights", "bookings"]
+    }),
+    getAllBooking: builder.query({
+      query: () => ({
+        url: `/bookings`,
+        method: "GET"
+      }),
+      providesTags: ["flights", "bookings"]
+    }),
+    updateBooking: builder.mutation({
+      query: ({ id, data }) => {
+        console.log(data);
+        return {
+          url: `/bookings/${id}`,
+          method: "PUT",
+          body: data
+        };
+      },
+      invalidatesTags: ["flights", "bookings"]
     })
   })
 });
 
-export const { useCreateBookingMutation, useGetMyBookingsQuery } = authApi;
+export const {
+  useCreateBookingMutation,
+  useGetMyBookingsQuery,
+  useGetAllBookingQuery,
+  useUpdateBookingMutation
+} = authApi;

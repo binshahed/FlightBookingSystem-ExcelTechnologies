@@ -21,6 +21,8 @@ router
     userController.loginUser,
   );
 
+  router.route('/users').get(auth('admin'), userController.getAllUsers);
+
 router
   .route('/user/updateProfile')
   .patch(auth('user', 'admin'), userController.updateProfile);

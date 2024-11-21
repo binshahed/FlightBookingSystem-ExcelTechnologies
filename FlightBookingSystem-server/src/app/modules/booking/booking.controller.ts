@@ -27,7 +27,7 @@ const getUserBookings = catchAsync(async (req, res) => {
 });
 
 const getAllBookings = catchAsync(async (req, res) => {
-  const result = await bookingService.getAllBookings();
+  const result = await bookingService.getAllBookings(req.query);
 
   sendResponse(res, {
     success: true,

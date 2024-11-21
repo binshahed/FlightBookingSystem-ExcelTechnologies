@@ -19,8 +19,19 @@ const authApi = baseApi.injectEndpoints({
         method: "GET"
       }),
       providesTags: ["flights", "bookings"]
+    }),
+    getAllFlights: builder.query({
+      query: () => ({
+        url: "/flights",
+        method: "GET"
+      }),
+      providesTags: ["flights", "bookings"]
     })
   })
 });
 
-export const { useSearchFlightQuery, useFlightDetailsQuery } = authApi;
+export const {
+  useSearchFlightQuery,
+  useFlightDetailsQuery,
+  useGetAllFlightsQuery
+} = authApi;

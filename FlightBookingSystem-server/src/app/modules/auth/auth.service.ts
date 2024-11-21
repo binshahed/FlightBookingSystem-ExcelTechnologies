@@ -82,8 +82,14 @@ const updateProfile = async (userId: any, payload: TUser) => {
   return user;
 };
 
+const getAllUsers = async () => {
+  const users = await UserModel.find();
+  return users;
+};
+
 export const userService = {
   signUpUser,
   loginUser,
   updateProfile,
+  getAllUsers,
 };

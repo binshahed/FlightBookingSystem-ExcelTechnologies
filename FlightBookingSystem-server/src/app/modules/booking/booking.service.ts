@@ -10,6 +10,7 @@ import { UserModel } from '../auth/auth.model';
 import { SeatModel } from '../seat/seat.model';
 import { isSeatAvailable } from './booking.utils';
 import { BookingModel } from './booking.model';
+import { QueryBuilder } from '../../builder/QueryBuilder';
 
 type TSeatMap = {
   economy: { seatNumber: string; isBooked: boolean }[];
@@ -118,16 +119,26 @@ const createBooking = async (payLoad: TBooking, userId: any) => {
 
 const getUserBookings = async (userId: any) => {
   const bookings = await BookingModel.find({ userId })
-    .populate('flight')
-    .populate('user');
+    .populate('flightId')
+    .populate('userId');
   return bookings;
 };
 
-const getAllBookings = async () => {
-  const bookings = await BookingModel.find()
-    .populate('flight')
-    .populate('user');
-  return bookings;
+const getAllBookings = async (query: any) => {
+  const bookings = new QueryBuilder(
+    BookingModel.find()
+      .sort('-createdAt')
+      .populate('flightId')
+      .populate('userId'),
+    query,
+  );
+
+  const bookingResult = await bookings.modelQuery.exec();
+
+  // const bookings = await BookingModel.find()
+  //   .populate('flightId')
+  //   .populate('userId');
+  return bookingResult;
 };
 
 const updateBooking = async (bookingId: string, payload: TBooking) => {
