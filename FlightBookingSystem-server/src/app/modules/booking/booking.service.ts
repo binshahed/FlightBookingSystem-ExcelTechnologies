@@ -134,7 +134,7 @@ const createBooking = async (payLoad: TBooking, userId: any) => {
         </div>
 `;
 
-    sendEmail('mdbinshahed5@gmail.com', emailBody);
+    sendEmail(user?.email, emailBody);
 
     return bookingResult;
   } catch (error: any) {
