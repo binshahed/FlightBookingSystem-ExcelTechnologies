@@ -1,7 +1,7 @@
 # Flight Booking System - Server
 
 ## Overview
-This is the backend server for the Flight Booking System, built using the MERN stack (MongoDB, Express.js, React, Node.js). The server provides a RESTful API that enables flight booking, user authentication, and management for both users and admins.
+This is the backend server for the Flight Booking System, built using the MERN stack (MongoDB, Express.js,  Node.js). The server provides a RESTful API that enables flight booking, user authentication, and management for both users and admins.
 
 ## Features
 - **User Authentication:**
