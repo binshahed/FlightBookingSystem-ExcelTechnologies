@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import BookingCard from "../components/cards/BookingCard";
+import Skeleton from "../components/skeleton/Skeleton";
 import { ProfileEditModal } from "../features/profile/ProfileEditModal";
 import { useCurrentUser } from "../store/features/auth/authSlice";
 import { useGetMyBookingsQuery } from "../store/features/booking/bookingApi";
@@ -36,11 +37,13 @@ const ProfilePage = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6 my-10">
-        {isLoading
-          ? "Loading"
-          : data?.data?.map((booking: any) => (
-              <BookingCard key={booking?.id} booking={booking} />
-            ))}
+        {isLoading ? (
+          <Skeleton />
+        ) : (
+          data?.data?.map((booking: any) => (
+            <BookingCard key={booking?.id} booking={booking} />
+          ))
+        )}
       </div>
     </div>
   );

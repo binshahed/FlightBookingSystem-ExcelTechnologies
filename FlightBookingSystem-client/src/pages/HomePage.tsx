@@ -38,7 +38,7 @@ const HomePage = () => {
               <input
                 onChange={(e) => setSearchValue({ searchTerm: e.target.value })}
                 type="text"
-                placeholder="e.g., New York"
+                placeholder="Search by City, Airport, or Country"
                 className="w-full px-4 py-2 border rounded-md"
               />
 

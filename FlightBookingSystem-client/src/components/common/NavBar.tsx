@@ -47,7 +47,7 @@ export default function NavBar() {
                 : "hover:text-primary transition"
             }
           >
-            Search
+            Flights
           </NavLink>
         </div>
 

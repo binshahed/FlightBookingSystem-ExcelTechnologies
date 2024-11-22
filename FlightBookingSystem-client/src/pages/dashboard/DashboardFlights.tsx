@@ -38,7 +38,7 @@ const DashboardFlights = () => {
 
   return (
     <div className="">
-      <div className="flex justify-between">
+      <div className="flex justify-between items-center">
         <PageHeading>Flights</PageHeading>
         <Link to="/dashboard/flights/create">
           <Button>Create Flight</Button>

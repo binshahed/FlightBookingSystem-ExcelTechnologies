@@ -28,7 +28,7 @@ const SearchPage = () => {
                     setSearchValue({ searchTerm: e.target.value })
                   }
                   type="text"
-                  placeholder="e.g., New York"
+                  placeholder="Search by City, Airport, or Country"
                   className="w-full px-4 py-2 border rounded-md"
                 />
               </div>
@@ -44,6 +44,15 @@ const SearchPage = () => {
           {data?.data?.map((d: TFlight) => (
             <FlightSearchCard flight={d} isLoading={isLoading} />
           ))}
+        </div>
+      )}
+
+      {!isLoading && data?.data?.length === 0 && (
+        <div className="container">
+          <p className="text-center py-10 text-red-500 font-bold">
+            {" "}
+            No Flight Found
+          </p>
         </div>
       )}
     </div>
