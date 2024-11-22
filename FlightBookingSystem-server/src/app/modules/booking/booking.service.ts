@@ -358,6 +358,7 @@ const getMyBookings = async (userId: any) => {
   const user = userId.toString();
 
   const bookings = await BookingModel.find({ userId: user })
+    .sort('-createdAt')
     .populate('flightId')
     .populate('userId');
 

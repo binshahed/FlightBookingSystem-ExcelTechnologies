@@ -12,7 +12,7 @@ const ProfilePage = () => {
   console.log(data);
 
   return (
-    <div className="container">
+    <div className="container ">
       <div className=" mx-auto my-10 p-6 bg-gray-50 rounded-lg shadow-md w-full">
         {/* Profile Header */}
         <div className="flex flex-col md:flex-row items-center gap-6">
@@ -35,7 +35,7 @@ const ProfilePage = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6 my-10">
         {isLoading
           ? "Loading"
           : data?.data?.map((booking: any) => (
