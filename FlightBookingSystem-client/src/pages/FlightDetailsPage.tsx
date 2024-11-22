@@ -12,6 +12,18 @@ const FlightDetailsPage = () => {
 
   // States for each class type
 
+  if (isLoading) {
+    return (
+      <div className="container my-20">
+        <Skeleton />
+        <br />
+        <Skeleton />
+        <br />
+        <Skeleton />
+      </div>
+    );
+  }
+
   if (isError || !data?.data) {
     return (
       <div className="container mx-auto text-center text-red-500">

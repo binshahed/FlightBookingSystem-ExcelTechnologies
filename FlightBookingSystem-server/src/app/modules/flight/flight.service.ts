@@ -43,6 +43,9 @@ const createFlight = async (payLoad: {
       throw new AppError(httpStatus.BAD_REQUEST, 'Flight is not created');
     }
 
+
+    
+
     // Commit the transaction
     await session.commitTransaction();
 
@@ -64,9 +67,9 @@ const createFlight = async (payLoad: {
 };
 
 const getAllFlights = async () => {
-  const flights = await FlightModel.find({ isDeleted: { $ne: true } }).populate(
-    'seats',
-  );
+  const flights = await FlightModel.find({ isDeleted: { $ne: true } })
+    .sort('-createdAt')
+    .populate('seats');
   return flights;
 };
 

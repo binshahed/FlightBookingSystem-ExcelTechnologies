@@ -11,6 +11,8 @@ import { SeatModel } from '../seat/seat.model';
 import { isSeatAvailable } from './booking.utils';
 import { BookingModel } from './booking.model';
 import { QueryBuilder } from '../../builder/QueryBuilder';
+import { sendEmail } from '../../../utils/sendEmail';
+import { TUser } from '../auth/auth.interface';
 
 type TSeatMap = {
   economy: { seatNumber: string; isBooked: boolean }[];
@@ -63,7 +65,9 @@ const createBooking = async (payLoad: TBooking, userId: any) => {
     });
 
     // Save the booking document
-    const bookingResult = await booking.save({ session });
+    const bookingResult = (
+      await (await booking.save({ session })).populate('flightId')
+    ).populate<{ userId: TUser }>('userId');
 
     // Update Seat Availability
     const updateSeatsPromises: Promise<any>[] = [];
@@ -104,6 +108,33 @@ const createBooking = async (payLoad: TBooking, userId: any) => {
     // Commit the transaction
     await session.commitTransaction();
     session.endSession();
+
+    const emailBody = `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 20px auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px; background-color: #f9f9f9;">
+
+        <h1 style="text-align: center; color: #4a90e2;">Flight Booking Confirmation</h1>
+        <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;" />
+
+        <p>Hello Mr./Ms. <strong>${user?.name || 'Customer'}</strong>,</p>
+        <p>Thank you for booking with <strong>Travel World</strong>. Your flight has been successfully confirmed.</p>
+
+          <h2 style="color: #4a90e2;">Booking Details</h2>
+          <div style="padding: 10px; background-color: #f4f8fb; border-radius: 8px;">
+          <p><strong>Flight Number:</strong> ${flight?.flightNumber || 'N/A'}</p>
+   
+            <p><strong>Departure Time:</strong> ${flight?.departureTime || 'N/A'}</p>
+          <p><strong>Origin:</strong> ${flight?.origin?.airportCode || 'N/A'}, ${flight?.origin?.city || 'N/A'}</p>
+          <p><strong>Destination:</strong> ${flight?.destination?.airportCode || 'N/A'}, ${flight?.destination?.city || 'N/A'}</p>
+        </div>
+
+        <p>Please ensure you arrive at the airport at least 2 hours prior to departure. If you have any questions, feel free to contact us at <strong>support@travelworld.com</strong>.</p>
+
+        <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;" />
+          <p style="text-align: center; font-size: 12px; color: #888;">© ${new Date().getFullYear()} Travel World. All rights reserved.<br />This is an automated message; please do not reply.</p>
+        </div>
+`;
+
+    sendEmail('mdbinshahed5@gmail.com', emailBody);
 
     return bookingResult;
   } catch (error: any) {

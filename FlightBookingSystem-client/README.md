@@ -1,50 +1,34 @@
-# React + TypeScript + Vite
+# Flight Booking System - React App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
+This is the frontend for the Flight Booking System, built using React. The application allows users to search for flights, view available options, make bookings, and manage their profiles. Admins can manage flights and bookings.
 
-Currently, two official plugins are available:
+## Features
+- **User Authentication:**
+  - Users can register, log in, and view their profile.
+  - JWT token is used for authentication.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Flight Search:**
+  - Users can search for flights based on origin, destination, and date.
+  - Flight details such as airline, price, available seats, etc., are displayed.
 
-## Expanding the ESLint configuration
+- **Booking:**
+  - Users can book flights and view booking history.
+  - Admin users can view all bookings and manage them.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Admin Dashboard:**
+  - Admins can add, update, and delete flights.
 
-- Configure the top-level `parserOptions` property like this:
+- **Responsive UI:**
+  - The UI is responsive and optimized for both desktop and mobile views.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Setup Instructions
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### 1. Clone the Repository
+```bash
+git clone https://github.com/your-username/flight-booking-client.git
+cd flight-booking-client
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+.env
+VITE_NODE_ENV=development
+VITE_BASE_URL=http://localhost:5000/api

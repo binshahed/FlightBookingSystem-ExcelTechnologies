@@ -1,5 +1,6 @@
 import { Outlet, ScrollRestoration } from "react-router-dom";
 import NavBar from "../components/common/NavBar";
+import Footer from "../components/common/Footer";
 
 const MainLayout = () => {
   return (
@@ -7,7 +8,7 @@ const MainLayout = () => {
       <ScrollRestoration />
       <NavBar />
       <Outlet />
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 };

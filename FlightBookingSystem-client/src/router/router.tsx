@@ -13,6 +13,8 @@ import DashboardLayout from "../layout/dashboard/DashboardLayout";
 import DashboardHome from "../pages/dashboard/DashboardHome";
 import DashboardBooking from "../pages/dashboard/DashboardBooking";
 import DashboardFlights from "../pages/dashboard/DashboardFlights";
+import DashboardCreateFlight from "../pages/dashboard/DashboardCreateFlight";
+import NotFoundPage from "../pages/NotFoundPage";
 
 const router = createBrowserRouter([
   {
@@ -76,6 +78,11 @@ const router = createBrowserRouter([
         element: <DashboardFlights />
       },
       {
+        path: "flights/create",
+        element: <DashboardCreateFlight />
+      },
+
+      {
         path: "bookings",
         element: <DashboardBooking />
       }
@@ -84,7 +91,7 @@ const router = createBrowserRouter([
 
   {
     path: "/*",
-    element: <h1>Page Not Found</h1>
+    element: <NotFoundPage />
   }
 ]);
 

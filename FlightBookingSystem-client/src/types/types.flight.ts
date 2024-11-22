@@ -38,3 +38,37 @@ export type TFlight = {
   seats: TSeats;
   isDeleted: boolean;
 };
+
+
+
+interface SeatConfig {
+  rows: number;
+  columns: { value: string }[];
+}
+
+export interface FlightFormData {
+  flight: {
+    flightNumber: string;
+    airline: string;
+    origin: {
+      airportCode: string;
+      city: string;
+      country: string;
+    };
+    destination: {
+      airportCode: string;
+      city: string;
+      country: string;
+    };
+    departureTime: string;
+    arrivalTime: string;
+    price: {
+      economy: number;
+      business: number;
+      firstClass: number;
+    };
+  };
+  seats: {
+    [key in "economy" | "business" | "firstClass"]: SeatConfig;
+  };
+}

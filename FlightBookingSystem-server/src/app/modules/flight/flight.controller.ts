@@ -7,6 +7,9 @@ import { flightService } from './flight.service';
 const createFlight = catchAsync(async (req, res) => {
   const result = await flightService.createFlight(req.body);
 
+
+  
+
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.OK,

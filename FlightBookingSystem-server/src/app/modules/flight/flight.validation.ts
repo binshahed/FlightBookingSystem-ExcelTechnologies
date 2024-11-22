@@ -26,8 +26,8 @@ const flightValidation = z.object({
   airline: z.string({ message: 'Airline name is required' }),
   origin: airportValidation,
   destination: airportValidation,
-  departureTime: z.string({ message: 'Departure time is required' }).datetime(),
-  arrivalTime: z.string({ message: 'Arrival time is required' }).datetime(),
+  departureTime: z.string({ message: 'Departure time is required' }),
+  arrivalTime: z.string({ message: 'Arrival time is required' }),
   price: priceValidation,
 });
 

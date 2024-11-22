@@ -26,6 +26,21 @@ const authApi = baseApi.injectEndpoints({
         method: "GET"
       }),
       providesTags: ["flights", "bookings"]
+    }),
+    deleteFlight: builder.mutation({
+      query: (id) => ({
+        url: `/flights/${id}`,
+        method: "DELETE"
+      }),
+      invalidatesTags: ["flights", "bookings"]
+    }),
+    createFlight: builder.mutation({
+      query: (data) => ({
+        url: "/flights",
+        method: "POST",
+        body: data
+      }),
+      invalidatesTags: ["flights", "bookings"]
     })
   })
 });
@@ -33,5 +48,7 @@ const authApi = baseApi.injectEndpoints({
 export const {
   useSearchFlightQuery,
   useFlightDetailsQuery,
-  useGetAllFlightsQuery
+  useGetAllFlightsQuery,
+  useDeleteFlightMutation,
+  useCreateFlightMutation
 } = authApi;

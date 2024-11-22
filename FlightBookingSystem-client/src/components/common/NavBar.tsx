@@ -49,26 +49,6 @@ export default function NavBar() {
           >
             Search
           </NavLink>
-          <NavLink
-            to="/services"
-            className={({ isActive }) =>
-              isActive
-                ? "text-primary font-bold border-b-2 border-primary"
-                : "hover:text-primary transition"
-            }
-          >
-            Services
-          </NavLink>
-          <NavLink
-            to="/contact"
-            className={({ isActive }) =>
-              isActive
-                ? "text-primary font-bold border-b-2 border-primary"
-                : "hover:text-primary transition"
-            }
-          >
-            Contact
-          </NavLink>
         </div>
 
         {/* User Account Section */}
@@ -96,12 +76,12 @@ export default function NavBar() {
                   </span>
                 </Link>
               </Dropdown.Header>
-              <Dropdown.Item>
-                <Link to="/dashboard">Dashboard</Link>
-              </Dropdown.Item>
-              <Dropdown.Item>
-                <Link to="/settings">Settings</Link>
-              </Dropdown.Item>
+              {user.email && user?.role === "admin" && (
+                <Dropdown.Item>
+                  <Link to="/dashboard">Dashboard</Link>
+                </Dropdown.Item>
+              )}
+
               <Dropdown.Divider />
               <Dropdown.Item onClick={handleLogout}>Sign out</Dropdown.Item>
             </Dropdown>

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button } from "flowbite-react";
 import { useState } from "react";
@@ -55,24 +54,24 @@ const Seats = ({ flight }: { flight: any }) => {
             {flight.seats.seatMap[classType].map((seat: TSeat) => {
               // Determine which state and color to apply
               let selectedSeats;
-              let setSelectedSeats;
+
               let seatColor = "bg-secondary"; // Default color
 
               if (classType === "economy") {
                 selectedSeats = selectedEconomy;
-                setSelectedSeats = setSelectedEconomy;
+
                 seatColor = selectedSeats.includes(seat.seatNumber)
                   ? "bg-primary"
                   : "bg-secondary";
               } else if (classType === "business") {
                 selectedSeats = selectedBusiness;
-                setSelectedSeats = setSelectedBusiness;
+
                 seatColor = selectedSeats.includes(seat.seatNumber)
                   ? "bg-primary"
                   : "bg-secondary";
               } else if (classType === "firstClass") {
                 selectedSeats = selectedFirstClass;
-                setSelectedSeats = setSelectedFirstClass;
+
                 seatColor = selectedSeats.includes(seat.seatNumber)
                   ? "bg-primary"
                   : "bg-secondary";
